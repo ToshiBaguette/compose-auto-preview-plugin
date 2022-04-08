@@ -1,7 +1,7 @@
-package org.jetbrains.plugins.template.services
+package fr.toshi.autocomposepreview.services
 
 import com.intellij.openapi.project.Project
-import org.jetbrains.plugins.template.MyBundle
+import fr.toshi.autocomposepreview.MyBundle
 
 class MyProjectService(project: Project) {
 

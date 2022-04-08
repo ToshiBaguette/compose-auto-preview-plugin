@@ -1,0 +1,10 @@
+@Composable
+fun ComposableFunction() {
+    // Code
+}
+
+@Preview
+@Composable
+fun PreviewComposableFunction() {
+    ComposableFunction()
+}

@@ -1,9 +1,8 @@
-package org.jetbrains.plugins.template.services
+package fr.toshi.autocomposepreview.services
 
-import org.jetbrains.plugins.template.MyBundle
+import fr.toshi.autocomposepreview.MyBundle
 
 class MyApplicationService {
-
     init {
         println(MyBundle.message("applicationService"))
     }

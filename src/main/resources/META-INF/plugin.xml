@@ -1,18 +1,30 @@
 <!-- Plugin Configuration File. Read more: https://plugins.jetbrains.com/docs/intellij/plugin-configuration-file.html -->
 <idea-plugin>
-    <id>org.jetbrains.plugins.template</id>
-    <name>Template</name>
-    <vendor>JetBrains</vendor>
+    <id>fr.toshi.autocomposepreview</id>
+    <name>Compose Auto Preview</name>
+    <vendor>Grégory LORY</vendor>
 
+    <depends>org.jetbrains.kotlin</depends>
     <depends>com.intellij.modules.platform</depends>
 
+    <description>
+        <![CDATA[
+        A simple plugin to automatically generate a preview for a given Composable function.
+        ]]>
+    </description>
+
     <extensions defaultExtensionNs="com.intellij">
-        <applicationService serviceImplementation="org.jetbrains.plugins.template.services.MyApplicationService"/>
-        <projectService serviceImplementation="org.jetbrains.plugins.template.services.MyProjectService"/>
+        <applicationService serviceImplementation="fr.toshi.autocomposepreview.services.MyApplicationService"/>
+        <projectService serviceImplementation="fr.toshi.autocomposepreview.services.MyProjectService"/>
+
+        <intentionAction>
+            <className>fr.toshi.autocomposepreview.intention.AutoComposePreviewCreator</className>
+            <category>Compose Android</category>
+        </intentionAction>
     </extensions>
 
     <applicationListeners>
-        <listener class="org.jetbrains.plugins.template.listeners.MyProjectManagerListener"
+        <listener class="fr.toshi.autocomposepreview.listeners.MyProjectManagerListener"
                   topic="com.intellij.openapi.project.ProjectManagerListener"/>
     </applicationListeners>
 </idea-plugin>
