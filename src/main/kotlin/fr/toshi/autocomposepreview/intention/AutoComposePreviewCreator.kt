@@ -7,6 +7,7 @@ import com.intellij.openapi.editor.Editor
 import com.intellij.openapi.project.Project
 import com.intellij.psi.PsiElement
 import com.intellij.psi.util.PsiTreeUtil
+import com.intellij.refactoring.suggested.startOffset
 import org.jetbrains.kotlin.psi.KtNamedFunction
 import org.jetbrains.kotlin.psi.KtPsiFactory
 
@@ -40,6 +41,8 @@ class AutoComposePreviewCreator: PsiElementBaseIntentionAction(), IntentionActio
             val functionBody = "@Preview\n@Composable\nfun $nameNewFunction() {\n${sourceFunction.name}()\n}"
 
             val newFunction = element.containingFile.add(factory.createFunction(functionBody))
+
+            editor?.caretModel?.primaryCaret?.moveToOffset(newFunction.startOffset + functionBody.length - 3)
         }
     }
 
