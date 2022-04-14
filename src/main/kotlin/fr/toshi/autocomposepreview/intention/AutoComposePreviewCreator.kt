@@ -15,17 +15,17 @@ class AutoComposePreviewCreator: PsiElementBaseIntentionAction(), IntentionActio
     override fun getFamilyName(): String = text
 
     override fun isAvailable(project: Project, editor: Editor, element: PsiElement): Boolean {
-        return true
+        val sourceFunction =
+                element as? KtNamedFunction ?: PsiTreeUtil.getParentOfType(element, KtNamedFunction::class.java)
+                ?: return false
 
-        // TODO : Fix this filthy thing
-        //val method = PsiTreeUtil.getParentOfType(element, KtNamedFunction::class.java) ?: element as KtNamedFunction
+        sourceFunction.annotationEntries.forEach {
+            if (it.shortName?.asString()?.contains("Composable") == true || it.text.contains("Composable") || it.name?.contains("Composable") == true) {
+                return true
+            }
+        }
 
-        //method.annotations.forEach {
-        //    if (it.name == "Composable" || it.text == "Composable")
-        //        return true
-        //}
-
-        //return false
+        return false
     }
 
     override fun invoke(project: Project, editor: Editor?, element: PsiElement) {

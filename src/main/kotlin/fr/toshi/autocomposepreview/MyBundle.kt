@@ -1,8 +1,4 @@
-<<<<<<< HEAD:src/main/kotlin/fr/toshi/autocomposepreview/MyBundle.kt
 package fr.toshi.autocomposepreview
-=======
-package com.github.toshibane.composeautopreview
->>>>>>> e84af9f2afe13c6be72ebebdeff0ea83400ad246:src/main/kotlin/com/github/toshibane/composeautopreview/MyBundle.kt
 
 import com.intellij.DynamicBundle
 import org.jetbrains.annotations.NonNls
