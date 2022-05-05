@@ -2,6 +2,12 @@
 
 # compose-auto-preview Changelog
 
-## [Unreleased]
+## [1.2.0]
+- Remove deprecated functions.
+
+## [1.1.0]
+- Add auto previews with background color.
+
+## [1.0.0]
 ### Added
-- Initial scaffold created from [IntelliJ Platform Plugin Template](https://github.com/JetBrains/intellij-platform-plugin-template)
+- Create a Composable Preview with one click.

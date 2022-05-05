@@ -13,8 +13,8 @@ import fr.toshi.autocomposepreview.capitalizeFirstLetter
 import org.jetbrains.kotlin.psi.KtNamedFunction
 import org.jetbrains.kotlin.psi.KtPsiFactory
 
-class AutoComposePreviewCreator: PsiElementBaseIntentionAction(), IntentionAction {
-    override fun getText(): String = "Generate Compose Preview"
+class AutoComposePreviewWithBackground: PsiElementBaseIntentionAction(), IntentionAction {
+    override fun getText(): String = "Generate Compose Preview With Background"
     override fun getFamilyName(): String = text
 
     override fun isAvailable(project: Project, editor: Editor, element: PsiElement): Boolean {
@@ -37,14 +37,14 @@ class AutoComposePreviewCreator: PsiElementBaseIntentionAction(), IntentionActio
 
     override fun invoke(project: Project, editor: Editor?, element: PsiElement) {
         val sourceFunction =
-            element as? KtNamedFunction ?: PsiTreeUtil.getParentOfType(element, KtNamedFunction::class.java)
-            ?: return
+                element as? KtNamedFunction ?: PsiTreeUtil.getParentOfType(element, KtNamedFunction::class.java)
+                ?: return
         val nameNewFunction = "Preview" + sourceFunction.name?.capitalizeFirstLetter()
 
         WriteCommandAction.writeCommandAction(project, element.containingFile).run<Throwable> {
             val factory = KtPsiFactory(project)
 
-            val functionBody = "@Preview\n@Composable\nfun $nameNewFunction() {\n${sourceFunction.name}()\n}"
+            val functionBody = "@Preview(\nshowBackground=true,\nbackgroundColor=0xFFFFFF\n)\n@Composable\nfun $nameNewFunction() {\n${sourceFunction.name}()\n}"
 
             val newFunction = element.containingFile.add(factory.createFunction(functionBody))
 

@@ -9,7 +9,7 @@
 
     <description>
         <![CDATA[
-        A simple plugin to automatically generate a preview for a given Composable function.
+        A plugin to automatically generate a preview for a given Composable function.
         ]]>
     </description>
 
@@ -19,6 +19,10 @@
 
         <intentionAction>
             <className>fr.toshi.autocomposepreview.intention.AutoComposePreviewCreator</className>
+            <category>Compose Android</category>
+        </intentionAction>
+        <intentionAction>
+            <className>fr.toshi.autocomposepreview.intention.AutoComposePreviewWithBackground</className>
             <category>Compose Android</category>
         </intentionAction>
     </extensions>

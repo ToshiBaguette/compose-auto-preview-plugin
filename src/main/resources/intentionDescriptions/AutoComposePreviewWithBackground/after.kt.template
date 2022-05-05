@@ -1,0 +1,13 @@
+@Composable
+fun ComposableFunction() {
+    // Code
+}
+
+@Preview(
+    showBackground = true,
+    backgroundColor = 0xFFFFFF
+)
+@Composable
+fun PreviewComposableFunction() {
+    ComposableFunction()
+}
