@@ -1,0 +1,10 @@
+@Composable
+fun MyComposableFunction() {
+ ...
+}
+
+@Preview(...)
+@Composable
+fun PreviewMyComposableFunction() {
+    MyComposableFunction()
+}

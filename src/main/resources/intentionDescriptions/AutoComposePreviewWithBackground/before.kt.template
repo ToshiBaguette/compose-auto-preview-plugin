@@ -1,4 +1,0 @@
-@Composable
-fun ComposableFunction() {
-    // Code
-}
