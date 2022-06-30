@@ -18,8 +18,29 @@ abstract class AbsPreviewGenerator(
         private val file: PsiFile,
         private val sourceFunction: KtNamedFunction
 ): AnAction(name) {
-    companion object { val test = "" }
+    private fun getPositionOfPreview(): KtNamedFunction? {
+        val methods = file.children.filterIsInstance<KtNamedFunction>()
+        val methodNames = methods.map { it.name }
 
+        val startIndex = methods.indexOf(sourceFunction)
+        for (i in startIndex downTo 0) {
+            val previousFunction = methods[i]
+
+            if (methodNames.contains("Preview${previousFunction.name?.capitalizeFirstLetter()}")) {
+                return methods[methodNames.indexOf("Preview${previousFunction.name?.capitalizeFirstLetter()}")]
+            }
+        }
+
+        return null
+    }
+
+    private fun getFirstPreviewOfFile(): KtNamedFunction? {
+        val methods = file.children.filterIsInstance<KtNamedFunction>()
+        val previews = methods.filter { it.name?.startsWith("Preview") ?: false }
+
+        return if (previews.isEmpty()) null else methods[methods.indexOf(previews[0])]
+    }
+    
     protected fun writePreview(previewParameters: String) {
         val sourceFunctionName = sourceFunction.name
         val newFunctionName = "Preview" + sourceFunctionName?.capitalizeFirstLetter()
@@ -33,7 +54,20 @@ abstract class AbsPreviewGenerator(
 
         WriteCommandAction.writeCommandAction(project, file).run<Throwable> {
             val factory = KtPsiFactory(project)
-            val newFunction = file.add(factory.createFunction(functionBody))
+
+            val previousElement = getPositionOfPreview()
+            val newFunction = if (previousElement == null) {
+                val firstPreview = getFirstPreviewOfFile()
+
+                if (firstPreview == null) {
+                    file.add(factory.createFunction(functionBody))
+                } else {
+                    firstPreview.parent.addBefore(factory.createFunction("\n$functionBody"), firstPreview)
+                }
+
+            } else {
+                previousElement.parent.addAfter(factory.createFunction("\n$functionBody"), previousElement)
+            }
 
             editor.caretModel.primaryCaret.moveToOffset(newFunction.startOffset + functionBody.length - 3)
             editor.scrollingModel.scrollToCaret(ScrollType.CENTER)

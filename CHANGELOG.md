@@ -2,6 +2,12 @@
 
 # compose-auto-preview Changelog
 
+## [2.1.0]
+
+### Generation Change
+
+Previews still are generated at the end of the file, but now they are in the same order as your composable functions !
+
 ## [2.0.0]
 
 ### UI Changes

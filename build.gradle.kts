@@ -95,7 +95,7 @@ tasks {
         })
 
         this.finalizedBy(buildPlugin)
-        this.finalizedBy(publishPlugin)
+        //this.finalizedBy(publishPlugin)
     }
 
     // Configure UI tests plugin
